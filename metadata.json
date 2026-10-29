@@ -1,0 +1,6 @@
+{
+  "name": "RemindFlow - Freelance Invoices & Automated Reminders",
+  "description": "Full-stack invoice management and automated payment reminder platform for freelancers with Stripe payment integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,80 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default Deny Catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Users Collection
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow create: if isOwner(userId)
+        && incoming().userId == userId
+        && incoming().email is string
+        && incoming().email.size() <= 200;
+      allow update: if isOwner(userId)
+        && incoming().userId == existing().userId
+        && incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'emailTemplate', 'updatedAt']);
+      allow delete: if false;
+    }
+
+    // Clients Collection
+    match /clients/{clientId} {
+      allow get: if isSignedIn() && existing().userId == request.auth.uid;
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn()
+        && isValidId(clientId)
+        && incoming().userId == request.auth.uid
+        && incoming().name is string && incoming().name.size() > 0 && incoming().name.size() <= 120
+        && incoming().email is string && incoming().email.size() <= 200;
+      allow update: if isSignedIn()
+        && existing().userId == request.auth.uid
+        && incoming().userId == existing().userId
+        && incoming().name is string && incoming().name.size() > 0 && incoming().name.size() <= 120
+        && incoming().email is string && incoming().email.size() <= 200;
+      allow delete: if isSignedIn() && existing().userId == request.auth.uid;
+    }
+
+    // Invoices Collection
+    match /invoices/{invoiceId} {
+      allow get: if isSignedIn() && existing().userId == request.auth.uid;
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn()
+        && isValidId(invoiceId)
+        && incoming().userId == request.auth.uid
+        && incoming().amount is int && incoming().amount > 0 && incoming().amount <= 100000000
+        && incoming().paidAmount is int && incoming().paidAmount >= 0 && incoming().paidAmount <= incoming().amount
+        && incoming().status in ['unpaid', 'partial', 'paid']
+        && incoming().dueDate is string && incoming().dueDate.size() <= 50
+        && incoming().stripePayUrl is string && incoming().stripePayUrl.size() <= 1000;
+      allow update: if isSignedIn()
+        && existing().userId == request.auth.uid
+        && incoming().userId == existing().userId
+        && incoming().amount is int && incoming().amount > 0 && incoming().amount <= 100000000
+        && incoming().paidAmount is int && incoming().paidAmount >= 0 && incoming().paidAmount <= incoming().amount
+        && incoming().status in ['unpaid', 'partial', 'paid'];
+      allow delete: if isSignedIn() && existing().userId == request.auth.uid;
+    }
+  }
+}

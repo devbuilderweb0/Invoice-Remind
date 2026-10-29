@@ -1,0 +1,164 @@
+{
+  "users": {
+    "demo-freelancer-uid": {
+      "userId": "demo-freelancer-uid",
+      "email": "demo@freelancerflow.dev",
+      "displayName": "Alex Morgan",
+      "businessName": "Morgan Creative Studio",
+      "emailTemplate": "",
+      "createdAt": "2026-10-29T14:09:15.806Z",
+      "updatedAt": "2026-10-29T14:09:15.806Z"
+    }
+  },
+  "clients": {
+    "cli_acme_corp": {
+      "id": "cli_acme_corp",
+      "userId": "demo-freelancer-uid",
+      "name": "Acme Corporation (Sarah Chen)",
+      "email": "billing@acmecorp.com",
+      "createdAt": "2026-10-04T14:09:15.806Z",
+      "updatedAt": "2026-10-04T14:09:15.806Z"
+    },
+    "cli_apex_media": {
+      "id": "cli_apex_media",
+      "userId": "demo-freelancer-uid",
+      "name": "Apex Digital Media",
+      "email": "invoices@apexdigital.io",
+      "createdAt": "2026-10-14T14:09:15.806Z",
+      "updatedAt": "2026-10-14T14:09:15.806Z"
+    },
+    "cli_starlight_labs": {
+      "id": "cli_starlight_labs",
+      "userId": "demo-freelancer-uid",
+      "name": "Starlight Tech Labs",
+      "email": "accounts@starlightlabs.net",
+      "createdAt": "2026-10-24T14:09:15.806Z",
+      "updatedAt": "2026-10-24T14:09:15.806Z"
+    },
+    "cli_1793282986105_dvmrn": {
+      "id": "cli_1793282986105_dvmrn",
+      "userId": "demo-freelancer-uid",
+      "name": "Nordic Design Co",
+      "email": "contact@nordicdesign.se",
+      "createdAt": "2026-10-29T14:09:46.106Z",
+      "updatedAt": "2026-10-29T14:09:46.106Z"
+    }
+  },
+  "invoices": {
+    "inv_1001": {
+      "id": "inv_1001",
+      "userId": "demo-freelancer-uid",
+      "clientId": "cli_acme_corp",
+      "clientName": "Acme Corporation (Sarah Chen)",
+      "clientEmail": "billing@acmecorp.com",
+      "amount": 150000,
+      "paidAmount": 50000,
+      "status": "partial",
+      "dueDate": "2026-10-21T14:09:15.806Z",
+      "stripePayUrl": "https://buy.stripe.com/test_eVaeVb5093Acme1500",
+      "notes": "Website Redesign Milestone 2 - 8 days overdue",
+      "reminderSent": {
+        "before3": true,
+        "onDue": true,
+        "after7": true
+      },
+      "createdAt": "2026-10-04T14:09:15.806Z",
+      "updatedAt": "2026-10-29T14:09:21.644Z"
+    },
+    "inv_1002": {
+      "id": "inv_1002",
+      "userId": "demo-freelancer-uid",
+      "clientId": "cli_apex_media",
+      "clientName": "Apex Digital Media",
+      "clientEmail": "invoices@apexdigital.io",
+      "amount": 280000,
+      "paidAmount": 0,
+      "status": "unpaid",
+      "dueDate": "2026-10-29T15:09:15.806Z",
+      "stripePayUrl": "https://buy.stripe.com/test_7sIeVb5093Apex2800",
+      "notes": "Full-stack Web Application Development - Sprint 1",
+      "reminderSent": {
+        "before3": true,
+        "onDue": true,
+        "after7": false
+      },
+      "createdAt": "2026-10-15T14:09:15.806Z",
+      "updatedAt": "2026-10-29T14:09:21.643Z"
+    },
+    "inv_1003": {
+      "id": "inv_1003",
+      "userId": "demo-freelancer-uid",
+      "clientId": "cli_starlight_labs",
+      "clientName": "Starlight Tech Labs",
+      "clientEmail": "accounts@starlightlabs.net",
+      "amount": 85000,
+      "paidAmount": 0,
+      "status": "unpaid",
+      "dueDate": "2026-11-01T14:09:15.806Z",
+      "stripePayUrl": "https://buy.stripe.com/test_3cIeVb5093Starlight850",
+      "notes": "Brand Guidelines & Identity Design Package",
+      "reminderSent": {
+        "before3": true,
+        "onDue": false,
+        "after7": false
+      },
+      "createdAt": "2026-10-25T14:09:15.806Z",
+      "updatedAt": "2026-10-29T14:09:21.642Z"
+    },
+    "inv_1004": {
+      "id": "inv_1004",
+      "userId": "demo-freelancer-uid",
+      "clientId": "cli_acme_corp",
+      "clientName": "Acme Corporation (Sarah Chen)",
+      "clientEmail": "billing@acmecorp.com",
+      "amount": 200000,
+      "paidAmount": 200000,
+      "status": "paid",
+      "dueDate": "2026-10-09T14:09:15.806Z",
+      "stripePayUrl": "https://buy.stripe.com/test_1aIeVb5093Paid2000",
+      "notes": "Project Kickoff & Discovery Session",
+      "reminderSent": {
+        "before3": true,
+        "onDue": true,
+        "after7": false
+      },
+      "createdAt": "2026-09-29T14:09:15.806Z",
+      "updatedAt": "2026-10-09T14:09:15.806Z"
+    }
+  },
+  "logs": [
+    {
+      "userId": "demo-freelancer-uid",
+      "invoiceId": "inv_1001",
+      "clientName": "Acme Corporation (Sarah Chen)",
+      "clientEmailMasked": "b***g@acmecorp.com",
+      "reminderType": "after7",
+      "status": "simulated",
+      "details": "Simulated send (no live API key)",
+      "id": "log_1793282961644_ekuwz",
+      "sentAt": "2026-10-29T14:09:21.644Z"
+    },
+    {
+      "userId": "demo-freelancer-uid",
+      "invoiceId": "inv_1002",
+      "clientName": "Apex Digital Media",
+      "clientEmailMasked": "i***s@apexdigital.io",
+      "reminderType": "onDue",
+      "status": "simulated",
+      "details": "Simulated send (no live API key)",
+      "id": "log_1793282961643_mbc4e",
+      "sentAt": "2026-10-29T14:09:21.643Z"
+    },
+    {
+      "userId": "demo-freelancer-uid",
+      "invoiceId": "inv_1003",
+      "clientName": "Starlight Tech Labs",
+      "clientEmailMasked": "a***s@starlightlabs.net",
+      "reminderType": "before3",
+      "status": "simulated",
+      "details": "Simulated send (no live API key)",
+      "id": "log_1793282961642_5bfdp",
+      "sentAt": "2026-10-29T14:09:21.642Z"
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Freelancer account settings and reminder templates",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Firebase Auth UID of the user"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "User email address"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Freelancer display name or business name"
+        },
+        "emailTemplate": {
+          "type": "string",
+          "description": "Custom email body template for payment reminders"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Account creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        }
+      },
+      "required": ["userId", "email"]
+    },
+    "Client": {
+      "title": "Client",
+      "description": "Client of the freelancer",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique client document identifier"
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of the owning freelancer"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "description": "Client full name or company name"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+          "description": "Client email address"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Client creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        }
+      },
+      "required": ["id", "userId", "name", "email"]
+    },
+    "Invoice": {
+      "title": "Invoice",
+      "description": "Freelancer invoice with Stripe payment link and automated reminder tracking",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique invoice identifier"
+        },
+        "userId": {
+          "type": "string",
+          "description": "UID of the owning freelancer"
+        },
+        "clientId": {
+          "type": "string",
+          "description": "Identifier of the client"
+        },
+        "clientName": {
+          "type": "string",
+          "description": "Cached client name for quick display"
+        },
+        "clientEmail": {
+          "type": "string",
+          "format": "email",
+          "description": "Client email for sending reminders"
+        },
+        "amount": {
+          "type": "integer",
+          "description": "Total amount in cents (integer <= 100,000,000)"
+        },
+        "paidAmount": {
+          "type": "integer",
+          "description": "Amount already paid in cents (integer <= amount)"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["unpaid", "partial", "paid"],
+          "description": "Payment status"
+        },
+        "dueDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Payment due date stored as ISO string"
+        },
+        "stripePayUrl": {
+          "type": "string",
+          "description": "Stripe payment link URL provided by freelancer"
+        },
+        "reminderSent": {
+          "type": "object",
+          "description": "Flags indicating whether reminder emails have been sent"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation ISO date string"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last updated ISO date string"
+        }
+      },
+      "required": ["id", "userId", "clientId", "amount", "status", "dueDate", "stripePayUrl"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Freelancer user settings and profile"
+    },
+    "/clients/{clientId}": {
+      "schema": { "$ref": "#/entities/Client" },
+      "description": "Freelancer clients"
+    },
+    "/invoices/{invoiceId}": {
+      "schema": { "$ref": "#/entities/Invoice" },
+      "description": "Freelancer invoices with payment links"
+    }
+  }
+}
